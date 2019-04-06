@@ -1,0 +1,8 @@
+
+*.pickle
+
+\.idea/
+
+cache\.sqlite
+
+credentials\.json
