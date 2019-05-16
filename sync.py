@@ -94,12 +94,14 @@ class Synchronizer:
         for exam in exams:
             print(exam)
             if exam.oid not in storage.data['uploaded_exams']:
-                if exam.time_start is None and exam.time_end is None:
+                if exam.time_start is None or exam.time_end is None:
                     tt = self.syn_session.get_timetable(
                         week_start=utilities.get_first_day_of_week(exam.date).strftime('%Y-%m-%d')
                     )
-                    tmp_var__start = tt[exam.date.strftime('%Y-%m-%d')][int(exam.lesson) - 1].start
-                    tmp_var__end = tt[exam.date.strftime('%Y-%m-%d')][int(exam.lesson) - 1].end
+                    exam.lesson = [i.lesson.subject.name for i in tt[exam.date.strftime('%Y-%m-%d')]].index(
+                        exam.subject.name)
+                    tmp_var__start = tt[exam.date.strftime('%Y-%m-%d')][exam.lesson].start
+                    tmp_var__end = tt[exam.date.strftime('%Y-%m-%d')][exam.lesson].end
                     start = datetime(
                         year=exam.date.year,
                         month=exam.date.month,
