@@ -75,7 +75,7 @@ class GoogleCalendar:
         self.service = build('calendar', 'v3', credentials=credentials)
 
 
-class Synconizer:
+class Synchronizer:
     def __init__(self, google_calendar, synergia_session, storage_manager):
         """
 
@@ -186,8 +186,8 @@ if __name__ == '__main__':
     synergia = SynergiaImproved().session
     print('Creating Google Calendar session')
     google_cal = GoogleCalendar()
-    print('Creating Synconizer')
-    sc = Synconizer(
+    print('Creating Synchronizer')
+    sc = Synchronizer(
         google_cal, synergia, storage
     )
     sc.upload_exams()
